@@ -69,6 +69,7 @@ class Bank:
             return False
         return True
 
+
     @staticmethod
     def get_balance(account_num):
         """Returns the current_balance of an account."""
@@ -183,3 +184,9 @@ class Bank:
         )
         connection.commit()
 
+
+    @staticmethod
+    def end_database_connection():
+        """."""
+
+        connection.close()
