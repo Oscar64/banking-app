@@ -36,7 +36,7 @@ class Bank:
             current_balance,
             address,
             email,
-            phone_number,
+            phone_number
             
         ) 
         VALUES (?, ?, 0.0, ?, ?, ?);
