@@ -12,12 +12,12 @@ cursor.execute("""
 CREATE TABLE IF NOT EXISTS accounts 
 (
     account_num INTEGER PRIMARY KEY,
-    pin INTEGER,
-    user_name TEXT,
-    current_balance REAL,
-    address TEXT,
-    email TEXT,
-    phone_number TEXT,
+    pin INTEGER NOT NULL,
+    user_name TEXT NOT NULL,
+    current_balance REAL NOT NULL,
+    address TEXT NOT NULL,
+    email TEXT NOT NULL,
+    phone_number TEXT NOT NULL
 );
 """)
 
