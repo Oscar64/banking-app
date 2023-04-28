@@ -37,10 +37,9 @@ class Bank:
             address,
             email,
             phone_number
-            
         ) 
         VALUES (?, ?, 0.0, ?, ?, ?);
-        """, (pin, user_name, 0.0, address, email, phone_number))
+        """, (pin, user_name, address, email, phone_number))
         # always call commit when updating table
         connection.commit()
         
