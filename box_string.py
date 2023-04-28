@@ -1,9 +1,6 @@
 
 
 
-from colors import colors as c
-
-
 # Takes a single string(supposed to be made up of sentences)
 # and returns them as a list of strings, each within the length limit
 # specified with the parameter
