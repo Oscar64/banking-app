@@ -12,7 +12,7 @@ cursor.execute("""
 CREATE TABLE IF NOT EXISTS accounts 
 (
     account_num INTEGER PRIMARY KEY,
-    pin INTEGER NOT NULL,
+    pin TEXT NOT NULL,
     user_name TEXT NOT NULL,
     current_balance REAL NOT NULL,
     address TEXT NOT NULL,
