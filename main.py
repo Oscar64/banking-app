@@ -4,4 +4,4 @@
 from ui import UI
 
 
-UI.login_menu()
+UI.main_menu()
