@@ -23,7 +23,7 @@ def split_into_lines(text, limit):
     return line_list
 
     
-# Takes a list of strings and prints the each
+# Takes a list of strings and gives each a unique line
 # while surrounding them with certain strings
 def return_format_lines(line_list, lside, rside, ljust_amount):
     text = ''''''
@@ -39,7 +39,17 @@ def return_format_lines(line_list, lside, rside, ljust_amount):
     return text
 
 
-def box_message(message, width=50, box_color='white'):
-    return f"""{getattr(c, box_color)}╔{'═'*(width-2)}╗{getattr(c, 'white')}
-{return_format_lines(split_into_lines(message, width-4), f"{getattr(c, box_color)}║ {getattr(c, 'white')}", f"{getattr(c, box_color)} ║", width-4)}
-{getattr(c, box_color)}╚{'═'*(width-2)}╝{getattr(c, 'white')}"""
+# Returns a string that has been split into lines and boxed.
+def box_message(message, width=50):
+    return f"""╔{'═'*(width-2)}╗
+{return_format_lines(split_into_lines(message, width-4), f"║ ", f" ║", width-4)}
+╚{'═'*(width-2)}╝"""
+
+
+# Returns a string that has been split into lines and boxed.
+# Takes a list of strings, one for each line
+# Requires all strings in message_list to be shorter than width.
+def box_messages(message_list, width=50):
+    return f"""╔{'═'*(width-2)}╗
+{return_format_lines(message_list, f"║ ", f" ║", width-4)}
+╚{'═'*(width-2)}╝"""
