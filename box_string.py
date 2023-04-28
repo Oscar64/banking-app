@@ -38,15 +38,15 @@ def return_format_lines(line_list, lside, rside, ljust_amount):
 
 # Returns a string that has been split into lines and boxed.
 def box_message(message, width=50):
-    return f"""╔{'═'*(width-2)}╗
-{return_format_lines(split_into_lines(message, width-4), f"║ ", f" ║", width-4)}
-╚{'═'*(width-2)}╝"""
+    return f"""╒{'═'*(width-2)}╕
+{return_format_lines(split_into_lines(message, width-4), f"│ ", f" │", width-4)}
+╘{'═'*(width-2)}╛"""
 
 
 # Returns a string that has been split into lines and boxed.
 # Takes a list of strings, one for each line
 # Requires all strings in message_list to be shorter than width.
 def box_messages(message_list, width=50):
-    return f"""╔{'═'*(width-2)}╗
-{return_format_lines(message_list, f"║ ", f" ║", width-4)}
-╚{'═'*(width-2)}╝"""
+    return f"""╒{'═'*(width-2)}╕
+{return_format_lines(message_list, f"│ ", f" │", width-4)}
+╘{'═'*(width-2)}╛"""
