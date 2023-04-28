@@ -82,8 +82,8 @@ class Bank:
         )
 
         results = cursor.fetchall()
-        if len(results) != 1:
-            return None
+        # if len(results) != 1:
+        #     return None
         return results[0][0]
 
 
@@ -121,55 +121,19 @@ class Bank:
 
 
     @staticmethod
-    def change_pin(account_num, new_pin):
-        """Changes the stored pin of an account."""
+    def get_info(account_num):
+        """In a set order, returns the name, address, email, and phone_number of an account."""
 
         cursor.execute("""
-            UPDATE accounts
-            SET pin = ?
+            SELECT name, address, email, phone_number
+            FROM accounts
             WHERE account_num = ?
-            """, (new_pin, account_num)
+            ;
+            """, (account_num)
         )
-        connection.commit()
+        results = cursor.fetchall()[0]#[0]
 
-
-    @staticmethod
-    def change_address(account_num, new_address):
-        """Changes the stored address of an account."""
-
-        cursor.execute("""
-            UPDATE accounts
-            SET address = ?
-            WHERE account_num = ?
-            """, (new_address, account_num)
-        )
-        connection.commit()
-
-
-    @staticmethod
-    def change_email(account_num, new_email):
-        """Changes the stored email of an account."""
-
-        cursor.execute("""
-            UPDATE accounts
-            SET email = ?
-            WHERE account_num = ?
-            """, (new_email, account_num)
-        )
-        connection.commit()
-
-
-    @staticmethod
-    def change_phone_number(account_num, new_phone_number):
-        """Changes the stored phone_number of an account."""
-
-        cursor.execute("""
-            UPDATE accounts
-            SET phone_number = ?
-            WHERE account_num = ?
-            """, (new_phone_number, account_num)
-        )
-        connection.commit()
+        return results # [name, address, email, phone_number]
 
 
     @staticmethod
