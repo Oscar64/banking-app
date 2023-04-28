@@ -30,7 +30,7 @@ class UI:
             elif i == '3':
                 b.end_database_connection()
                 return
-            
+ 
 
     @staticmethod
     def login_menu():
@@ -44,7 +44,7 @@ class UI:
             system('cls')
             # Print account_num and pin
             print(box_list([f"Account Number: {account_num_input}", f"PIN: {pin_input}"]))
-            
+
             # account_num_input
             if len(account_num_input) == 0:
                 while True:
@@ -176,12 +176,15 @@ class UI:
 
     @staticmethod
     def account_menu(account_num):
+        """Primary menu for a bank accout; shows all basic/necessary information."""
 
         while True:
             [name, address, email, phone_number] = b.get_info(account_num)
             balance = b.get_balance(account_num)
             system('cls')
-            print(box_list([f"Name: {name}",
+            print(box_list([f"Current Balance: {balance}",
+                            " ",
+                            f"Name: {name}",
                             f"Address: {address}",
                             f"Email: {email}",
                             f"Phone Number: {phone_number}"
@@ -191,7 +194,7 @@ class UI:
                             "3) Cancel Account ",
                             "4) Log Out"
                             ]))
-            
+
             i = input()
             if i == '1':
                 UI.withdraw_menu(account_num)
@@ -204,26 +207,95 @@ class UI:
 
             elif i == '4':
                 return
-        
+
 
 
 
     @staticmethod
     def withdraw_menu(account_num):
         """Prompts user for them to withdraw money from their account."""
-        pass
+
+        balance = b.get_balance(account_num)
+        while True:
+            system('cls')
+            print(box(f"Current Balance: {balance}"))
+            print(box('How much money would you like to withdraw? Enter "e" to leave.'))
+
+            w_input = input()
+            if w_input == 'e':
+                return
+            if len(w_input) > 0:
+                try:
+                    amount = round(float(w_input.replace('$', '', 1)), 2)
+                    if b.withdraw(account_num, amount):
+                        system('cls')
+                        print(box(f'${amount} has successfully been withdrawn. Press [Enter] to continue.'))
+                        input()
+                        return
+                    else: # not enough money
+                        system('cls')
+                        print(box(f'The balance is too low to withdraw ${amount}. Press [Enter] to retry.'))
+                        input()
+                        return
+                except TypeError:
+                    system('cls')
+                    print(box('That is not a valid amount. Press [Enter] to retry.'))
+                    input()
 
 
     @staticmethod
     def deposit_menu(account_num):
         """Prompts user for them to deposit money into their account."""
-        pass
+
+        balance = b.get_balance(account_num)
+        while True:
+            system('cls')
+            print(box(f"Current Balance: {balance}"))
+            print(box('How much money would you like to deposit? Enter "e" to leave.'))
+
+            d_input = input()
+            if d_input == 'e':
+                return
+            if len(d_input) > 0:
+                try:
+                    amount = round(float(d_input.replace('$', '', 1)), 2)
+                    b.deposit(account_num, amount)
+                    system('cls')
+                    print(box(f'${amount} has successfully been deposited. Press [Enter] to continue.'))
+                    input()
+                    return
+                except TypeError:
+                    system('cls')
+                    print(box('That is not a valid amount. Press [Enter] to retry.'))
+                    input()
 
 
     @staticmethod
     def cancel_account_menu(account_num):
-        """Prompts user for their PIN and confirmation for removing their account from the database."""
-        pass
+        """Prompts user for their PIN and confirmation for deleting their account."""
+        pin = '_'
+
+        while True:
+            system('cls')
+            print(box('For confirmation, please enter the PIN of this account. Enter "e" to leave.'))
+
+            p = input()
+            if p == 'e':
+                return
+            if len(c) >= 4 and len(c) <= 16:
+                pin = p
+
+            # Test account PIN
+            if b.test_login(account_num, c):
+                system('cls')
+                print(box('The correct PIN has been entered. Are you sure you would like to cancel this account? Type "Yes." to confirm, [Enter] to leave.'))
+
+                c = input()
+                if c == 'Yes.':
+                    b.cancel_bank_account(account_num)
+                    system('cls')
+                    print(box(f'That is not a valid amount. Press [Enter] to return to login.'))
+                    input()
 
 
 """
