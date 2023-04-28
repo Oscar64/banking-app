@@ -77,6 +77,7 @@ class UI:
             # Attempt to log in
             if b.test_login(account_num_input, pin_input):
                 UI.account_menu(account_num_input)
+                return
             else:
                 system('cls')
                 account_num_input = ''
@@ -175,18 +176,54 @@ class UI:
 
     @staticmethod
     def account_menu(account_num):
-        input("logged in!")
+
+        while True:
+            [name, address, email, phone_number] = b.get_info(account_num)
+            balance = b.get_balance(account_num)
+            system('cls')
+            print(box_list([f"Name: {name}",
+                            f"Address: {address}",
+                            f"Email: {email}",
+                            f"Phone Number: {phone_number}"
+                            ]))
+            print(box_list(["1) Deposit",
+                            "2) Withdraw ",
+                            "3) Cancel Account ",
+                            "4) Log Out"
+                            ]))
+            
+            i = input()
+            if i == '1':
+                UI.withdraw_menu(account_num)
+
+            elif i == '2':
+                UI.deposit_menu(account_num)
+
+            elif i == '3':
+                UI.cancel_account_menu(account_num)
+
+            elif i == '4':
+                return
+        
+
 
 
     @staticmethod
     def withdraw_menu(account_num):
+        """Prompts user for them to withdraw money from their account."""
         pass
 
 
     @staticmethod
     def deposit_menu(account_num):
+        """Prompts user for them to deposit money into their account."""
         pass
 
+
+    @staticmethod
+    def cancel_account_menu(account_num):
+        """Prompts user for their PIN and confirmation for removing their account from the database."""
+        pass
 
 
 """
