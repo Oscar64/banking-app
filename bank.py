@@ -125,7 +125,7 @@ class Bank:
         """In a set order, returns the name, address, email, and phone_number of an account."""
 
         cursor.execute("""
-            SELECT name, address, email, phone_number
+            SELECT user_name, address, email, phone_number
             FROM accounts
             WHERE account_num = ?
             ;
