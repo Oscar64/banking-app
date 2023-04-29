@@ -29,6 +29,7 @@ class UI:
 
             elif i == '3':
                 b.end_database_connection()
+                system('cls')
                 return
  
 
@@ -182,15 +183,15 @@ class UI:
             [name, address, email, phone_number] = b.get_info(account_num)
             balance = b.get_balance(account_num)
             system('cls')
-            print(box_list([f"Current Balance: {balance}",
+            print(box_list([f"Current Balance: ${balance}",
                             " ",
                             f"Name: {name}",
                             f"Address: {address}",
                             f"Email: {email}",
                             f"Phone Number: {phone_number}"
                             ]))
-            print(box_list(["1) Deposit",
-                            "2) Withdraw ",
+            print(box_list(["1) Withdraw",
+                            "2) Deposit ",
                             "3) Cancel Account ",
                             "4) Log Out"
                             ]))
@@ -203,12 +204,11 @@ class UI:
                 UI.deposit_menu(account_num)
 
             elif i == '3':
-                UI.cancel_account_menu(account_num)
+                if UI.cancel_account_menu(account_num):
+                    return
 
             elif i == '4':
                 return
-
-
 
 
     @staticmethod
@@ -270,6 +270,7 @@ class UI:
                     input()
 
 
+    # Returns true if the account is deleted, false otherwise.
     @staticmethod
     def cancel_account_menu(account_num):
         """Prompts user for their PIN and confirmation for deleting their account."""
@@ -281,12 +282,17 @@ class UI:
 
             p = input()
             if p == 'e':
-                return
-            if len(c) >= 4 and len(c) <= 16:
+                return False
+            if len(p) >= 4 and len(p) <= 16:
                 pin = p
+            else:
+                system('cls')
+                print(box('An invalid PIN was entered. Press [Enter] to retry.'))
+                input()
+                continue
 
             # Test account PIN
-            if b.test_login(account_num, c):
+            if b.test_login(account_num, pin):
                 system('cls')
                 print(box('The correct PIN has been entered. Are you sure you would like to cancel this account? Type "Yes." to confirm, [Enter] to leave.'))
 
@@ -294,8 +300,14 @@ class UI:
                 if c == 'Yes.':
                     b.cancel_bank_account(account_num)
                     system('cls')
-                    print(box(f'That is not a valid amount. Press [Enter] to return to login.'))
+                    print(box(f'Account number {account_num} has successfuly been closed. Press [Enter] to continue.'))
                     input()
+                    return True
+
+            else: # incorrect pin
+                system('cls')
+                print(box('The entered PIN is incorrect. Press [Enter] to retry.'))
+                input()
 
 
 """
