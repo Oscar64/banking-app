@@ -259,9 +259,12 @@ class UI:
             if len(d_input) > 0:
                 try:
                     amount = round(float(d_input.replace('$', '', 1)), 2)
-                    b.deposit(account_num, amount)
                     system('cls')
-                    print(box(f'${amount} has successfully been deposited. Press [Enter] to continue.'))
+                    if amount <= 10000:
+                        b.deposit(account_num, amount)
+                        print(box(f'${amount} has successfully been deposited. Press [Enter] to continue.'))
+                    else:
+                        print(box('Deposits are limited to no more than $10,000. Press [Enter] to continue.'))
                     input()
                     return
                 except TypeError:
@@ -303,6 +306,7 @@ class UI:
                     print(box(f'Account number {account_num} has successfuly been closed. Press [Enter] to continue.'))
                     input()
                     return True
+                return False
 
             else: # incorrect pin
                 system('cls')
@@ -310,22 +314,6 @@ class UI:
                 input()
 
 
-"""
-# sample interaction with banking app:
-new_id = create_new_account('misha', 12345)
-print('created account number:', new_id)
-print('remember this number to access it in the future')
-print()
-
-# balance check with correct pin
-balance = check_balance(new_id, 12345)
-print(f'(correct pin) balance for account #{new_id} is {balance}')
-
-# balance cehck with incorrect pin
-balance = check_balance(new_id, 5678)
-print(f'(wrong pin) balance for account #{new_id} is {balance}')
-
-"""
 
 """
 ┌┬─┐ ╔╦═╗ ╒╤═╕ ╓╥─╖
