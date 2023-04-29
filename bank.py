@@ -143,7 +143,7 @@ class Bank:
         cursor.execute("""
             DELETE FROM accounts
             WHERE account_num = ?;
-            """, (account_num)
+            """, (account_num,)
         )
         connection.commit()
 
