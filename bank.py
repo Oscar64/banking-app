@@ -98,7 +98,7 @@ class Bank:
                 UPDATE accounts
                 SET current_balance = ?
                 WHERE account_num = ?
-                """, (balance-amount, account_num)
+                """, (round(balance-amount, 1), account_num)
             )
             connection.commit()
             return True
